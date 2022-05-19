@@ -55,9 +55,8 @@ const createShortUrl = async function (req, res) {
         }
 
         const generatedUrl = await urlModel.create(newUrl)
-
+        await SET_ASYNC(`${urlCode}`, JSON.stringify(generatedUrl)) //to store data inside cache
         return res.status(201).send({ status: true, message: 'Success', data: generatedUrl })
-
     } catch (err) {
         res.status(500).send({ status: false, message: err.message })
     }
@@ -65,15 +64,21 @@ const createShortUrl = async function (req, res) {
 
 const getUrl = async (req, res) => {
     try {
-        const urlCode = req.params.urlCode
+        const { urlCode } = req.params
+        let cachedUrlData = await GET_ASYNC(`${urlCode}`)
 
-        const data = await urlModel.find({ urlCode })
+        if(cachedUrlData){
+            let data = JSON.parse(cachedUrlData)
+            return res.redirect(data.longUrl)
+        }
+        const result = await urlModel.findOne({ urlCode })
 
-        if (!data) {
+        if (!result) {
             return res.status(400).send({ status: false, message: 'url not exist' })
         }
 
-        res.redirect(data.longUrl)
+        await SET_ASYNC(`${urlCode}`, JSON.stringify(result))
+        res.redirect(result.longUrl)
     } catch (err) {
         res.status(500).send({ status: false, message: err.message })
     }
