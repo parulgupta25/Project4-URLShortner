@@ -1,0 +1,27 @@
+{
+  "name": "project4-urlshortner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parulgupta25/Project4-URLShortner.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/parulgupta25/Project4-URLShortner/issues"
+  },
+  "homepage": "https://github.com/parulgupta25/Project4-URLShortner#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.3.3",
+    "nodemon": "^2.0.16",
+    "redis": "^3.1.2",
+    "shortid": "^2.2.16",
+    "util": "^0.12.4"
+  }
+}
