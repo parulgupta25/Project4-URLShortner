@@ -28,7 +28,7 @@ const isValidUrl = (longUrl) => {
 
 const createShortUrl = async function (req, res) {
     try {
-        const { longUrl } = req.body
+        const { longUrl }  = req.body
 
         if (!longUrl) {
             return res.status(400).send({ status: false, message: 'Long url is required' })
